@@ -65,7 +65,7 @@ void ili9341_setaddress(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)//set co
 	ili9341_writedata8(y2);
 	ili9341_writedata8(y2);
 
-	ili9341_writecommand8(0x2C);//meory write
+	ili9341_writecommand8(0x2C);//memory write
 }
 
 

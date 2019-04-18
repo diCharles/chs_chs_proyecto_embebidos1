@@ -1,4 +1,4 @@
-#define F_CPU 8000000UL
+#define F_CPU 1000000UL
 #include<avr/io.h>
 #include<util/delay.h>
 #include<stdio.h>
@@ -17,13 +17,16 @@ int main(void)
 {
 	stdout = & mydata;
 	ili9341_init();//initial driver setup to drive ili9341
-	ili9341_clear(BLACK);//fill screen with pink colour
+	ili9341_clear(BLUE);//fill screen with pink colour
 	
 	display_init();//display initial data
 
 	while(1)
 	{
-		
+			
+			ili9341_clear(BLACK);//fill screen with pink colour
+			
+			display_init();//display initial data
 
 	}
 

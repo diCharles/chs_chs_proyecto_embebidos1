@@ -1,3 +1,9 @@
+/*
+	ORIGINAL AUTOR : ADAFRUIT INDUSTRIES (arduino implementation)
+	Ported to atmega8 by :
+	REVISION and extra comments by :DIEGO CHARLES @diCharles
+	Date: 18 april 2019
+*/
 #ifndef ILI9341_H
 #define ILI9341_H
 
@@ -8,6 +14,17 @@
 #include<inttypes.h> /*  This header file includes the exact-width integer definitions from
 <tt><stdint.h></tt>*/
 
+/*	PIN MAP
+ili9431								atmega8
+	rst								 PD7
+	cs								 PB1
+	sck								 PB5/SCK
+	WR/D/C(data com select)			PBO
+	SDI							PB3/MOSI
+	SDO								PB
+								/SS slave select
+
+*/
 #define controlport PORTB
 #define controlddr DDRB
 #define controlpin PINB
@@ -19,7 +36,6 @@
 #define rst 7
 #define ILI9341_TFTHEIGHT 320// modified value from 240 to 320
 #define ILI9341_TFTWIDTH 240// modified value fron 320 to 240 
-
 
 
 
@@ -46,79 +62,60 @@
 
 
 
-/*! brief
+/*! brief : configures rst pin and dc pin high
 	@param void
 	@return void
 */
 void ili9341_hard_init(void);
-/*! brief
+/*! brief initializes spi module in master mode and set spi pins as output
 	@param void
 	@return void
 */
 void ili9341_spi_init(void);
-/*! brief
-	@param void
+/*! brief : the processor as master sends data trougth spi bus
+	@param data to be transmitted via spi in master mode
 	@return void
 */
 void ili9341_spi_send(unsigned char spi_data);
-/*! brief
-	@param data to be transmitted via spi in master mode
+
+/*! brief: the control bus (cs and dc ) need to be low to correctly send commands via spi bus
+	@param command to ili9341 driver
 	@return void
 */
 void ili9341_writecommand8(uint8_t com);
-/*! brief
-	@param data to be transmitted via spi in master mode
+
+/*! brief: the control bus change state again for data input for ili9431 driver, dc high, cs low
+		    then the driver will acept input data
+	@param data to be writed into driver ili9341
 	@return void
 */
 void ili9341_writedata8(uint8_t data);
-/*! brief
-	@param data to be transmitted via spi in master mode
+
+/*! brief set glcd screen coordinate
+	@param x1, x2 and y2, y1 coordinates
 	@return void
 */
 void ili9341_setaddress(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2);
+
 /*! brief
 	@param data to be transmitted via spi in master mode
 	@return void
 */
 void ili9341_hard_reset(void);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_init(void);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_pushcolour(uint16_t colour);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_clear(uint16_t colour);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_drawpixel(uint16_t x3,uint16_t y3,uint16_t colour1);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_drawvline(uint16_t x,uint16_t y,uint16_t h,uint16_t colour);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_drawhline(uint16_t x,uint16_t y,uint16_t w,uint16_t colour);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_fillrect(uint16_t x,uint16_t y,uint16_t w,uint16_t h,uint16_t colour);
-/*! brief
-	@param data to be transmitted via spi in master mode
-	@return void
-*/
+
 void ili9341_setRotation(uint8_t x);
 #endif
