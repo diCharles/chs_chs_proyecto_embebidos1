@@ -1,2 +1,2 @@
-# chs_chs_proyecto_embebidos1
-implementation of a movile phone with the kinetis k64
+# UART_t10_embebidos_chs_chs
+implementation of UART in kinetis k64 and teraterm console
